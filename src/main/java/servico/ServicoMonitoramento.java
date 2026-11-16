@@ -21,11 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Regras de negócio do sistema: lê sensores, valida, grava no banco, prevê e emite alertas.
- * Recebe os DAOs e os sensores no construtor, o que permite testar a lógica com Mockito,
- * sem banco de dados de verdade.
- */
+
 public class ServicoMonitoramento {
 
     private final MedicaoDAO medicaoDAO;
@@ -51,15 +47,12 @@ public class ServicoMonitoramento {
         throw new DadosInvalidosException("Sensor desconhecido: '" + tipoSensor + "'.");
     }
 
-    // ---------------------------------------------------------------- leituras
 
-    /** Pede uma leitura ao sensor, valida e grava no banco. */
     public Medicao lerESalvar(Sensor sensor) throws FonteIndisponivelException, DadosInvalidosException {
         double valor = sensor.lerValor();
         return validarESalvar(sensor, valor);
     }
 
-    /** Registra uma medição digitada pelo operador (passa pelas mesmas validações). */
     public Medicao registrarMedicaoManual(String tipoSensor, double valor)
             throws FonteIndisponivelException, DadosInvalidosException {
         return validarESalvar(buscarSensor(tipoSensor), valor);
@@ -77,12 +70,7 @@ public class ServicoMonitoramento {
         return medicao;
     }
 
-    // ---------------------------------------------------------------- previsões e alertas
 
-    /**
-     * Busca o histórico no BANCO, calcula a previsão com a estratégia recebida (polimorfismo)
-     * e compara com os limiares. Se atingir algum, emite e grava um alerta.
-     */
     public ResultadoPrevisao gerarPrevisao(String tipoSensor, EstrategiaPrevisao estrategia)
             throws FonteIndisponivelException, DadosInvalidosException {
         Sensor sensor = buscarSensor(tipoSensor);
@@ -119,7 +107,6 @@ public class ServicoMonitoramento {
         return alerta;
     }
 
-    // ---------------------------------------------------------------- consultas
 
     public List<Medicao> consultarHistorico(String tipoSensor) throws FonteIndisponivelException {
         return medicaoDAO.buscarHistoricoPorSensor(tipoSensor);
@@ -138,7 +125,6 @@ public class ServicoMonitoramento {
         return ultimas.isEmpty() ? Optional.empty() : Optional.of(ultimas.get(0));
     }
 
-    /** BÔNUS: exporta o histórico de um sensor para um arquivo CSV (separador ';', abre direto no Excel). */
     public Path exportarHistoricoCsv(String tipoSensor, Path destino) throws FonteIndisponivelException {
         List<Medicao> historico = medicaoDAO.buscarHistoricoPorSensor(tipoSensor);
 

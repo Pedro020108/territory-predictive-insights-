@@ -13,25 +13,20 @@ class FabricaPrevisaoTest {
 
     @Test
     void deveCriarMediaMovel() throws DadosInvalidosException {
-        // Arrange + Act
         Object estrategia = FabricaPrevisao.criar("MEDIA");
 
-        // Assert
         assertInstanceOf(PrevisaoMediaMovel.class, estrategia);
     }
 
     @Test
     void deveCriarComparacaoIgnorandoMaiusculasEEspacos() throws DadosInvalidosException {
-        // Arrange + Act
         Object estrategia = FabricaPrevisao.criar("  comparacao ");
 
-        // Assert
         assertInstanceOf(PrevisaoComparacao.class, estrategia);
     }
 
     @Test
     void deveRecusarTipoDesconhecido() {
-        // Arrange + Act + Assert
         assertThrows(DadosInvalidosException.class, () -> FabricaPrevisao.criar("ADIVINHACAO"));
     }
 }

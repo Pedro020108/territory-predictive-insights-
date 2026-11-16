@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-/** DAO da tabela ALERTA: grava cada alerta emitido e lista os já emitidos. */
+
 public class AlertaDAO {
 
     public void salvar(Alerta alerta) throws FonteIndisponivelException {
@@ -40,7 +40,7 @@ public class AlertaDAO {
         }
     }
 
-    /** Todos os alertas já emitidos, do mais recente para o mais antigo. */
+
     public List<Alerta> listarTodos() throws FonteIndisponivelException {
         String sql = "SELECT id, tipo_sensor, valor_previsto, nivel, mensagem, data_hora "
                 + "FROM ALERTA ORDER BY data_hora DESC, id DESC";

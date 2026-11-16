@@ -9,11 +9,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Cuida da conexão com o banco H2.
- * O banco fica em ARQUIVO (pasta dados/), então o histórico sobrevive ao fechar o programa.
- * As tabelas são criadas sozinhas na primeira execução.
- */
 public final class Conexao {
 
     private static final String URL_PADRAO = "jdbc:h2:file:./dados/territorio";
@@ -25,7 +20,6 @@ public final class Conexao {
     private Conexao() {
     }
 
-    /** Permite trocar o banco (ex.: em memória). Não é usado pelo programa normal. */
     public static void setUrl(String novaUrl) {
         url = novaUrl;
     }
@@ -40,7 +34,6 @@ public final class Conexao {
         }
     }
 
-    /** Cria as tabelas MEDICAO e ALERTA, se ainda não existirem. */
     public static void inicializarBanco() throws FonteIndisponivelException {
         String criarMedicao = "CREATE TABLE IF NOT EXISTS MEDICAO ("
                 + "id BIGINT AUTO_INCREMENT PRIMARY KEY, "

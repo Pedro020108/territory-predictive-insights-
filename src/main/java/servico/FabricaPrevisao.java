@@ -10,11 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-/**
- * PADRÃO FACTORY: a criação das estratégias de previsão fica concentrada aqui.
- * O restante do sistema pede "MEDIA" ou "COMPARACAO" e recebe o objeto pronto,
- * sem if/instanceof espalhado. Para criar uma nova estratégia, basta registrá-la no catálogo.
- */
+
 public final class FabricaPrevisao {
 
     public static final String MEDIA = "MEDIA";

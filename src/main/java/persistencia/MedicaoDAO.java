@@ -13,14 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * DAO (Data Access Object): a única classe que conversa com a tabela MEDICAO.
- * Todo SQL usa PreparedStatement (parâmetros "?"), nunca concatenação de String,
- * e os recursos são fechados automaticamente pelo try-with-resources.
- */
+
 public class MedicaoDAO {
 
-    /** Grava a medição e devolve o id gerado pelo banco dentro do próprio objeto. */
     public void salvar(Medicao medicao) throws FonteIndisponivelException {
         String sql = "INSERT INTO MEDICAO (tipo_sensor, valor, data_hora) VALUES (?, ?, ?)";
 
@@ -42,7 +37,6 @@ public class MedicaoDAO {
         }
     }
 
-    /** Todas as medições de todos os sensores, da mais antiga para a mais recente. */
     public List<Medicao> listarTodas() throws FonteIndisponivelException {
         String sql = "SELECT id, tipo_sensor, valor, data_hora FROM MEDICAO ORDER BY data_hora, id";
 
@@ -54,7 +48,6 @@ public class MedicaoDAO {
         }
     }
 
-    /** Histórico completo de um sensor, da mais antiga para a mais recente. */
     public List<Medicao> buscarHistoricoPorSensor(String tipoSensor) throws FonteIndisponivelException {
         String sql = "SELECT id, tipo_sensor, valor, data_hora FROM MEDICAO "
                 + "WHERE tipo_sensor = ? ORDER BY data_hora, id";
@@ -69,10 +62,6 @@ public class MedicaoDAO {
         }
     }
 
-    /**
-     * As últimas "quantidade" medições de um sensor, em ordem cronológica
-     * (a mais antiga primeiro, a mais recente por último). É a base das previsões.
-     */
     public List<Medicao> buscarUltimas(String tipoSensor, int quantidade) throws FonteIndisponivelException {
         if (quantidade <= 0) {
             throw new IllegalArgumentException("A quantidade de medições deve ser maior que zero.");
@@ -93,7 +82,7 @@ public class MedicaoDAO {
         }
     }
 
-    /** Quantas medições existem no banco para o sensor. */
+
     public long contarPorSensor(String tipoSensor) throws FonteIndisponivelException {
         String sql = "SELECT COUNT(*) FROM MEDICAO WHERE tipo_sensor = ?";
 

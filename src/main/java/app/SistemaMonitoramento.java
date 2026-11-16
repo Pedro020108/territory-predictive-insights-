@@ -26,11 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-/**
- * Menu principal (console). Só cuida da conversa com o usuário:
- * as regras ficam no ServicoMonitoramento e os erros são capturados aqui,
- * sempre com uma mensagem clara.
- */
+
 public class SistemaMonitoramento {
 
     private static final int MAX_LINHAS_HISTORICO = 30;
@@ -69,7 +65,6 @@ public class SistemaMonitoramento {
         }
     }
 
-    // ------------------------------------------------------------------ loop principal
 
     public void executar() {
         int opcao = -1;
@@ -98,9 +93,7 @@ public class SistemaMonitoramento {
 
     private void mostrarMenu() {
         System.out.println();
-        System.out.println("====================================");
         System.out.println("    TERRITORY PREDICTIVE INSIGHTS");
-        System.out.println("====================================");
         System.out.println("1 - Verificar sensores");
         System.out.println("2 - Realizar leituras");
         System.out.println("3 - Rodar previsões");
@@ -112,7 +105,6 @@ public class SistemaMonitoramento {
         System.out.println();
     }
 
-    // ------------------------------------------------------------------ 1 - sensores
 
     private void verificarSensores() {
         System.out.println("--- Verificação dos sensores ---");
@@ -123,7 +115,6 @@ public class SistemaMonitoramento {
         System.out.println("Região: " + regiao.verificarStatus());
     }
 
-    // ------------------------------------------------------------------ 2 - leituras
 
     private void realizarLeituras() {
         System.out.println("--- Leituras dos sensores ---");
@@ -140,7 +131,6 @@ public class SistemaMonitoramento {
         }
     }
 
-    // ------------------------------------------------------------------ 3 - previsões
 
     private void rodarPrevisoes() throws DadosInvalidosException {
         List<String> tipos = FabricaPrevisao.tiposDisponiveis();
@@ -190,7 +180,6 @@ public class SistemaMonitoramento {
         }
     }
 
-    // ------------------------------------------------------------------ 4 - histórico
 
     private void consultarHistorico() throws DadosInvalidosException, FonteIndisponivelException {
         Sensor sensor = escolherSensor();
@@ -218,7 +207,6 @@ public class SistemaMonitoramento {
         }
     }
 
-    // ------------------------------------------------------------------ 5 - alertas
 
     private void consultarAlertas() throws FonteIndisponivelException {
         List<Alerta> alertas = servico.consultarAlertas();
@@ -231,7 +219,6 @@ public class SistemaMonitoramento {
         }
     }
 
-    // ------------------------------------------------------------------ 6 - dados do território
 
     private void gerenciarDadosDoTerritorio() {
         int opcao = -1;
@@ -305,7 +292,6 @@ public class SistemaMonitoramento {
         System.out.println("População estimada atualizada: " + regiao.getPopulacaoEstimada());
     }
 
-    // ------------------------------------------------------------------ 7 - status completo
 
     private void mostrarStatusCompleto() {
         System.out.println("=== STATUS COMPLETO ===");
@@ -343,7 +329,6 @@ public class SistemaMonitoramento {
         }
     }
 
-    // ------------------------------------------------------------------ leitura de dados do teclado
 
     private Sensor escolherSensor() throws DadosInvalidosException {
         List<Sensor> sensores = servico.getSensores();

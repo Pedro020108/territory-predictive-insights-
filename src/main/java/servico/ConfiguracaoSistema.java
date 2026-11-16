@@ -10,11 +10,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * PADRÃO SINGLETON: existe uma única instância guardando os limiares de todos os sensores.
- * O construtor é privado; todo mundo pega a instância por getInstancia().
- * Assim, se um limiar muda no menu, o serviço de alertas enxerga a mudança na hora.
- */
 public final class ConfiguracaoSistema {
 
     private static ConfiguracaoSistema instancia;
@@ -32,7 +27,6 @@ public final class ConfiguracaoSistema {
         return instancia;
     }
 
-    /** Volta todos os limiares para os valores iniciais (exemplos configuráveis, não valores oficiais). */
     public synchronized void restaurarPadroes() {
         try {
             limiaresPorSensor.clear();

@@ -136,26 +136,15 @@ Durante o desenvolvimento, utilizamos os principais conceitos de programação o
 - **Testes automatizados:** desenvolvemos 37 testes com JUnit 5 e Mockito, utilizando o padrão AAA (Arrange, Act, Assert). Também usamos `assertThrows` para verificar as exceções. Na classe `ServicoMonitoramentoTest`, utilizamos Mockito para simular os DAOs e testar o serviço sem precisar acessar o banco de dados.
 
 ## 6. Padrões criacionais
+### Padrões criacionais utilizados
 
-Utilizamos dois padrões criacionais no projeto: Factory e Singleton.
+**Factory — FabricaPrevisao**
 
-**Factory – `FabricaPrevisao`**
+Utilizamos o padrão Factory para centralizar a criação das estratégias de previsão. Dessa forma, o serviço de monitoramento não precisa conhecer os detalhes de instanciação de cada estratégia, facilitando a manutenção e a inclusão de novos métodos de previsão.
 
-Utilizamos a Factory para criar os diferentes tipos de previsão. Como o sistema possui mais de uma estratégia, a fábrica recebe a opção escolhida e retorna o objeto correspondente.
+**Singleton — ConfiguracaoSistema**
 
-Por exemplo, o menu pode solicitar uma previsão do tipo `"MEDIA"` ou `"COMPARACAO"`, e a fábrica fica responsável por criar a estratégia correta.
-
-Dessa forma, evitamos deixar toda a lógica de criação espalhada pelo sistema. Caso seja necessário adicionar uma nova estratégia, podemos incluí-la na fábrica sem precisar alterar o funcionamento do serviço e do menu.
-
-**Singleton – `ConfiguracaoSistema`**
-
-Utilizamos o Singleton para manter uma única configuração dos limites de alerta durante a execução do programa.
-
-Isso é importante porque, quando um limite é alterado pelo menu, o restante do sistema precisa utilizar o mesmo valor atualizado.
-
-Para isso, a classe possui um construtor privado e o método `getInstancia()`, que permite acessar a única instância da configuração.
-
-Não utilizamos Singleton nos DAOs ou no serviço, pois eles não precisam compartilhar esse tipo de estado e também devem continuar podendo ser substituídos por mocks nos testes.
+Utilizamos Singleton para garantir uma única instância responsável pelas configurações gerais do sistema, principalmente os limiares utilizados na classificação dos alertas. Assim, os diferentes componentes consultam a mesma configuração, evitando valores divergentes.
 
 ## 7. Reflexão sobre o projeto
 
